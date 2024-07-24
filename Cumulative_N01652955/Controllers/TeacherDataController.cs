@@ -79,7 +79,7 @@ namespace Cumulative_N01652955.Controllers
             return teachers;
         }
 
-        /*//GOAL: To find a spcific teacher from the database using teacherid
+        //GOAL: To find a spcific teacher from the database using teacherid
         /// <summary>
         /// Receive a teacher id and provide the information of the teacher
         /// </summary>
@@ -95,48 +95,41 @@ namespace Cumulative_N01652955.Controllers
         ///                                       "HireDate":"2020-04-06","salary":"55.56"}
         /// </example>
         [HttpGet]
-        [Route("api/TeacherData/FindTeacher/{id}")]
-        public Teacher FindTeacher(int id)
+        [Route("api/TeacherData/FindTeacher/{TeacherId}")]
+        public Teacher FindTeacher(int TeacherId)
         {
+            //SQL command
+            string query = "select * from teachers where teacherid=" + TeacherId;
 
-            Debug.WriteLine("the api is finding the teacher with id = " + id);
-
-            //create a connection
             MySqlConnection Connection = School.AccessDatabase();
-
-            //Open the connection
             Connection.Open();
 
-            //create sql command
-            string query = "SELECT * FROM teachers WHERE teacherid= " + id;
-
-            //setting the sql query as command text
             MySqlCommand Command = Connection.CreateCommand();
+
             Command.CommandText = query;
 
-            //execute the query
-            MySqlDataReader ResultSet = Command.ExecuteReader();
+            MySqlDataReader Reader = Command.ExecuteReader();
 
-            //gather information from the result set
-            Teacher SelectedTeacher = new Teacher();
-
-            //loop through the results and add to the list
-            while ((ResultSet.Read()))
+            Teacher teachers = new Teacher();
+            //result set of 1 
+            while (Reader.Read())
             {
-                SelectedTeacher.TeacherId = Convert.ToInt32(ResultSet["teacherid"]);
-                SelectedTeacher.TeacherFName = ResultSet["teacherfname"].ToString();
-                SelectedTeacher.TeacherLName = ResultSet["teacherlname"].ToString();
-                SelectedTeacher.EmployeeNumber = ResultSet["employeenumber"].ToString();
-                SelectedTeacher.HireDate = Convert.ToDateTime(ResultSet["hiredate"]);
-            }
+                
 
-            //close the connection
+                teachers.TeacherId = Convert.ToInt32(Reader["teacherid"]);
+                teachers.TeacherFName = Reader["teacherfname"].ToString();
+                teachers.TeacherLName = Reader["teacherlname"].ToString();
+                teachers.EmployeeNumber = Reader["employeenumber"].ToString();
+                teachers.HireDate = Convert.ToDateTime(Reader["hiredate"]);
+                teachers.Salary = Convert.ToDecimal(Reader["salary"]);
+                
+                
+            }
             Connection.Close();
 
-            //return the result set
-            return SelectedTeacher;
+            return teachers;
 
-        }*/
+        }
 
     }
 }
