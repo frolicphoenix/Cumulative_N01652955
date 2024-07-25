@@ -1,14 +1,31 @@
-﻿
+﻿@model IEnumerable<Cumulative_N01652955.Models.Teacher>
 
 @{
     ViewBag.Title = "Teachers List";
 
     //Receieve the List<Teacher> from the controller
-    //Render the Teachers information as HTML 
+    //Render the Teachers information as HTML
 }
 
 <h2>List of Teachers</h2>
 
 <p>
-    Received teachers count (Updated: @DateTime.Now.ToString("MMMM") @DateTime.Now.ToString("yyyy"))
+    Received @Model.Count() teachers count (Updated: @DateTime.Now.ToString("MMMM") @DateTime.Now.ToString("yyyy"))
 </p>
+
+<a href="/Teacher/Create">Add a new Teacher</a>
+
+<!-- initiative - building a search bar -->
+<form method="GET" action="/Teacher/List">
+    <div>
+        <input type="text" name="SearchKey" /> <input type="submit" value="Search" />
+    </div>
+</form>
+
+
+@foreach (Cumulative_N01652955.Models.Teacher Teacher in Model)
+{
+    <div>
+        <a href="/Article/Show/@Teacher.TeacherId">@Teacher.TeacherFName @Teacher.TeacherLName</a>
+    </div>
+}
