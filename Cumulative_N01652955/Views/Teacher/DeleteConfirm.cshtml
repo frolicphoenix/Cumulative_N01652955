@@ -1,19 +1,16 @@
 ﻿@model Cumulative_N01652955.Models.Teacher
 
 @{
-    ViewBag.Title = "Show";
-
-    //receive the article
-    //render the information as html
+    ViewBag.Title = "DeleteConfirm";
 }
 
-<h2>@Model.TeacherFName's data</h2>
-
-<a style="color:red;" href="/Teacher/DeleteConfirm/@Model.TeacherId">Delete Teacher</a>
-
+<h2>Are you sure you want to delete.. </h2>
 
 <p>Full name: <span style="color:red">@Model.TeacherFName @Model.TeacherLName</span> </p>
 <p>Employee number: <span style="color:red">@Model.EmployeeNumber</span></p>
 <p>Hire date and time: <span style="color:red">@Model.HireDate</span></p>
 <p>Salary: <span style="color:red"> @Model.Salary</span></p>
 
+<form method="POST" action="/Teacher/Delete/@Model.TeacherId">
+    <input type="submit" value="delete teacher" style="color:deeppink; background:darkolivegreen"/>
+</form>

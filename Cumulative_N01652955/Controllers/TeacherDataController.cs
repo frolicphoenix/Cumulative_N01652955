@@ -131,5 +131,97 @@ namespace Cumulative_N01652955.Controllers
 
         }
 
+        /// <summary>
+        /// Recieve new teacher information and add it to the database
+        /// </summary>
+        /// <returns></returns>
+        /// <example>
+        /// POST: api/TeacherData/CreateTeacher -> null
+        /// POST: CONTENT / REQUEST BODY:
+        /// {
+        ///     "TeacherFName":"John",
+        ///     "TeacherLName":"Doe",
+        ///     "EmployeeNumber":"T123",
+        ///     "HireDate":"2020-04-06",
+        ///     "Salary":"55.56"
+        /// } -> null
+        /// </example>
+        /// <example>
+        /// curl -d @teacher.json "{\"TeacherFName\":\"John\",\"TeacherLName\":\"Doe\",\"EmployeeNumber\":\"T123\",\"HireDate\":\"2020-04-06\",\"Salary\":\"55.56\"}" -H "Content-Type: application/json"
+        /// </example>
+        [HttpPost]
+        [Route("api/TeacherData/CreateTeacher")]
+        public void CreateTeacher([FromBody]Teacher NewTeacher)
+        {
+            //create a connection
+            MySqlConnection Connection = School.AccessDatabase();
+
+            //open database
+            Connection.Open();
+
+            //create sql command
+            string query = "INSERT INTO teachers (teacherfname, teacherlname, employeenumber, hiredate,salary) VALUES (@FName, @LName, @ENumber, @HDate, @Slry)";
+
+            //set command text
+            MySqlCommand Command = Connection.CreateCommand();
+            Command.CommandText = query;
+
+            Command.Parameters.AddWithValue("@FName", NewTeacher.TeacherFName);
+            Command.Parameters.AddWithValue("@LName", NewTeacher.TeacherLName);
+            Command.Parameters.AddWithValue("@ENumber", NewTeacher.EmployeeNumber);
+            Command.Parameters.AddWithValue("@HDate", NewTeacher.HireDate);
+            Command.Parameters.AddWithValue("@Slry", NewTeacher.Salary);
+
+            Command.Prepare();
+            //execute the query
+            Command.ExecuteNonQuery();
+            //add the new teacher to the database
+
+            //close the connection
+            Connection.Close();
+
+            /*return "the new teacher information is "+NewTeacher.TeacherFName+" and "+NewTeacher.EmployeeNumber+"";*/
+        }
+
+        /// <summary>
+        /// This method receives teacher information and updates the teacher information in the database
+        /// </summary>
+        /// <param name="TeacherId"> the primary key of "teachers" table
+        /// </param>
+        /// <returns>
+        /// </returns>
+        /// <example>
+        /// POST api/TeacherData/DeleteTeacher/1 -> null
+        /// </example>
+        /// <example>
+        /// curl -d @teacher.json "{\"TeacherFName\":\"John\",\"TeacherLName\":\"Doe\",\"EmployeeNumber\":\"T123\",\"HireDate\":\"2020-04-06\",\"Salary\":\"55.56\"}" -H "Content-Type: application/json"
+        /// </example>
+        [HttpGet]
+        [Route("api/TeacherData/DeleteTeacher/{TeacherId}")]
+        public void DeleteTeacher(int TeacherId)
+        {
+            //create a connection
+            MySqlConnection Connection = School.AccessDatabase();
+
+            //open database
+            Connection.Open();
+
+            //create sql command
+            string query = "delete from teachers where teacherid=@id";
+
+            //set command text
+            MySqlCommand Command = Connection.CreateCommand();
+            Command.CommandText = query;
+
+            Command.Parameters.AddWithValue("@id", TeacherId);
+
+            //execute the query
+            Command.ExecuteNonQuery();
+            //add the new teacher to the database
+
+            //close the connection
+            Connection.Close();
+        }
+
     }
 }

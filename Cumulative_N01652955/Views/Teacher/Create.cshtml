@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Add new teacher data</h2>
+
+<!-- askign information from the user about the teacher to add to the database -->
+
+<form method="POST" action="/Teacher/New">
+    <div>
+        <label for="TeacherFName"> Teacher first name: </label>
+        <input type="text" name="TeacherFName" />
+    </div>
+
+    <div>
+        <label for="TeacherLName"> Teacher last name: </label>
+        <input type="text" name="TeacherLName"/>
+    </div>
+
+    <div>
+        <label for="EmployeeNumber">Employee number: </label>
+        <input type="text" name="EmployeeNumber" />
+    </div>
+
+    <div>
+        <label for="HireDate">Enter hire date: </label>
+        <input type="text" name="HireDate" />
+    </div>
+
+    <div>
+        <label for="Salary">Enter salary: </label>
+        <input type="text" name="Salary" />
+    </div>
+    <div>
+        <input type="submit" value="Save" />
+    </div>
+</form>
