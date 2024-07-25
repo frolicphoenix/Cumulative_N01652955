@@ -1,18 +1,16 @@
-﻿
+﻿@model Cumulative_N01652955.Models.Teacher
+
 @{
     ViewBag.Title = "Show";
+
+    //receive the article
+    //render the information as html
 }
 
-<h2>Individual teacher data</h2>
+<h2>@Model.TeacherFName's data</h2>
 
-<form>
-    <fieldset style="display: block;
-           text-align:center;
-           font-size: 25px;">
-        <legend style="font-size: 15px;">Teacher</legend>
-        Teacher name: ______
-        Employee number: ______
-        Hire Date: ______
-        Salary: ______
-    </fieldset>
-</form>
+<p>Full name: <span style="color:red">@Model.TeacherFName @Model.TeacherLName</span> </p>
+<p>Employee number: <span style="color:red">@Model.EmployeeNumber</span></p>
+<p>Hire date and time: <span style="color:red">@Model.HireDate</span></p>
+<p>Salary: <span style="color:red"> @Model.Salary</span></p>
+

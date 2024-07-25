@@ -19,10 +19,13 @@ namespace Cumulative_N01652955.Controllers
         }
 
         //GET: Teacher/Show/{id} -> a webpage that shows an individual teacher's details
-        public ActionResult Show()
+        public ActionResult Show(int id)
         {
+            TeacherDataController controller = new TeacherDataController();
+            Teacher SelectedTeacher = controller.FindTeacher(id);
+
             // Views/Teacher/Show.cshtml
-            return View();
+            return View(SelectedTeacher);
         }
     }
 }
