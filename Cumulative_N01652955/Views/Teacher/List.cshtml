@@ -7,13 +7,13 @@
     //Render the Teachers information as HTML
 }
 
-<h2>List of Teachers</h2>
+<h2 style="padding-top:20px;">List of Teachers</h2>
 
 <p>
     Received @Model.Count() teachers count (Updated: @DateTime.Now.ToString("MMMM") @DateTime.Now.ToString("yyyy"))
 </p>
 
-<a href="/Teacher/Create">Add a new Teacher</a>
+<p><a class="btn btn-outline-dark" href="/Teacher/Create">Add a new Teacher</a></p>
 
 <!-- initiative - building a search bar -->
 <form method="GET" action="/Teacher/List">
@@ -22,10 +22,36 @@
     </div>
 </form>
 
+<div class="teacher-gallery">
+    @foreach (Cumulative_N01652955.Models.Teacher Teacher in Model)
+    {
+        <div class="teacher-card">
+            <img src="https://imgs.search.brave.com/vVnku71ZQlNVKNdQOkRF0cVkA5fEtAEub0UP0jJC12U/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzAzLzIwLzc3LzE2/LzM2MF9GXzMyMDc3/MTYyMl9EU0dNZjBV/SHNxOWRMZnRWRjQy/ejBTbXd6Q0sxNElx/OC5qcGc" alt="Photo of @Teacher.TeacherFName" class="teacher-photo">
+            <h5><a href="/Teacher/Show/@Teacher.TeacherId" style="text-decoration: none;">@Teacher.TeacherFName @Teacher.TeacherLName</a></h5>
+        </div>
+    }
+</div>
 
-@foreach (Cumulative_N01652955.Models.Teacher Teacher in Model)
-{
-    <div>
-        <a href="/Teacher/Show/@Teacher.TeacherId">@Teacher.TeacherFName @Teacher.TeacherLName</a>
-    </div>
-}
+<style>
+    .teacher-gallery {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .teacher-card {
+        width: 300px;
+        margin: 10px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        text-align: center;
+        padding: 20px;
+    }
+
+    .teacher-photo {
+        width: 50%;
+        height: auto;
+        border-radius: 50%;
+    }
+
+
+</style>
