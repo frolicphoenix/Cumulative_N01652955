@@ -10,7 +10,7 @@
 <body>
 
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm" style="background-color: darkseagreen;">
-        <div class="container">
+        <div class="container" style="background-color: darkseagreen;">
             @Html.ActionLink("SchoolDB", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -24,7 +24,7 @@
             </div>
         </div>
     </nav>
-    <div class="container">
+    <div class="container" style="background-color: #fff;">
         @RenderBody()
         <hr />
         <footer>
