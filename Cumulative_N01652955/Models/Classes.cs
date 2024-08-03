@@ -16,5 +16,9 @@ namespace Cumulative_N01652955.Models
         public DateTime FinishDate { get; set; }
         public string ClassName { get; set; }
 
+        //FK TeacherId
+        public int TeacherId { get; set; }
+        public Teacher Teacher { get; set; }
+
     }
 }

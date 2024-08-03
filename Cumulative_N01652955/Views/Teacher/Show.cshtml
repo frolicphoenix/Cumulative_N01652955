@@ -7,13 +7,74 @@
     //render the information as html
 }
 
-<h2>@Model.TeacherFName's data</h2>
+<h2 style="padding-top:20px; padding-bottom:10px;">@Model.TeacherFName's data</h2>
 
-<a style="color:red;" href="/Teacher/DeleteConfirm/@Model.TeacherId">Delete Teacher</a>
+<p style="padding-bottom:5px;">
+    <a class="btn btn-outline-dark" href="/Teacher/List"> go back to the list</a> 
+    <a class="btn btn-outline-dark" href="/Teacher/DeleteConfirm/@Model.TeacherId">Delete Teacher</a>
+</p>
 
 
-<p>Full name: <span style="color:red">@Model.TeacherFName @Model.TeacherLName</span> </p>
-<p>Employee number: <span style="color:red">@Model.EmployeeNumber</span></p>
-<p>Hire date and time: <span style="color:red">@Model.HireDate</span></p>
-<p>Salary: <span style="color:red"> @Model.Salary</span></p>
+<div class="main">
+    <div class="card">
+        <div class="card-body">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Name: </td>
+                        <td>:</td>
+                        <td style="color: red;"> @Model.TeacherFName @Model.TeacherLName</td>
+                    </tr>
+                    <tr>
+                        <td>Course</td>
+                        <td>:</td>
+                        <td style="color: red;">@Model.className</td>
+                    </tr>
+                    <tr>
+                        <td>Employee number</td>
+                        <td>:</td>
+                        <td style="color: red;">@Model.EmployeeNumber</td>
+                    </tr>
+                    <tr>
+                        <td>Hire date</td>
+                        <td>:</td>
+                        <td style="color: red;">@Model.HireDate.ToString("yyyy-MM-dd")</td>
+                    </tr>
+                    <tr>
+                        <td>Salary</td>
+                        <td>:</td>
+                        <td style="color: red;">@Model.Salary</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
+<style>
+
+    .main {
+        margin-top: 2%;
+        margin-left: 29%;
+        font-size: 28px;
+        padding: 0 10px;
+        width: 58%;
+    }
+
+    .main .card {
+        background-color: #fff;
+        border-radius: 18px;
+        box-shadow: 1px 1px 8px 0 grey;
+        height: auto;
+        margin-bottom: 20px;
+        padding: 20px 0 20px 50px;
+    }
+
+    .main .card table {
+        border: none;
+        font-size: 16px;
+        height: 270px;
+        width: 80%;
+    }
+
+</style>

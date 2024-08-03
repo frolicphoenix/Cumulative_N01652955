@@ -26,9 +26,9 @@ namespace Cumulative_N01652955.Controllers
         /// <returns>A list of teachers in the database</returns>
         [HttpGet]
         [Route("api/TeacherData/ListTeachers")]
-        public List<Teacher> ListTeachers()
+        public List<Teacher> ListTeachers(string searchKey)
         {
-            Debug.WriteLine("the api is getting the list of teachers...");
+            Debug.WriteLine("the api is getting the list of teachers..." + searchKey);
 
             //create a connection
             MySqlConnection Connection = School.AccessDatabase();
@@ -37,10 +37,15 @@ namespace Cumulative_N01652955.Controllers
             Connection.Open();
 
             //create sql command
-            string query = "select * from teachers";
+            string query = "select *, DATE(hiredate) AS DateOnly from teachers WHERE teacherfname LIKE @key OR teacherlname LIKE @key OR hiredate LIKE @key OR salary LIKE @key;";
 
             //setting the sql query as command text
             MySqlCommand Command = Connection.CreateCommand();
+
+            //defining @key value
+            Command.Parameters.AddWithValue("@key", "%"+searchKey+"%");
+            Command.Prepare();
+
             Command.CommandText = query;
 
             //execute the query
@@ -79,6 +84,14 @@ namespace Cumulative_N01652955.Controllers
             return teachers;
         }
 
+        public async IEnumerable<TeacherxClasses> ShowTeacherClass()
+        {
+            List<TeacherxClasses> listTeacherClass = new List<TeacherxClasses>();
+            
+
+
+        }
+
         //GOAL: To find a spcific teacher from the database using teacherid
         /// <summary>
         /// Receive a teacher id and provide the information of the teacher
@@ -99,13 +112,13 @@ namespace Cumulative_N01652955.Controllers
         public Teacher FindTeacher(int TeacherId)
         {
             //SQL command
-            string query = "select * from teachers where teacherid=" + TeacherId;
+            string query = "SELECT * FROM teachers WHERE teacherid =" + TeacherId;
+
 
             MySqlConnection Connection = School.AccessDatabase();
             Connection.Open();
 
             MySqlCommand Command = Connection.CreateCommand();
-
             Command.CommandText = query;
 
             MySqlDataReader Reader = Command.ExecuteReader();
@@ -114,15 +127,12 @@ namespace Cumulative_N01652955.Controllers
             //result set of 1 
             while (Reader.Read())
             {
-                
-
                 teachers.TeacherId = Convert.ToInt32(Reader["teacherid"]);
                 teachers.TeacherFName = Reader["teacherfname"].ToString();
                 teachers.TeacherLName = Reader["teacherlname"].ToString();
                 teachers.EmployeeNumber = Reader["employeenumber"].ToString();
                 teachers.HireDate = Convert.ToDateTime(Reader["hiredate"]);
                 teachers.Salary = Convert.ToDecimal(Reader["salary"]);
-                
                 
             }
             Connection.Close();

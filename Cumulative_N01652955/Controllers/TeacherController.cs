@@ -11,11 +11,16 @@ namespace Cumulative_N01652955.Controllers
     public class TeacherController : Controller
     {
         // GET: Teacher/List -> a webpage that shows a list of teachers
-        public ActionResult List()
+        public ActionResult List(string searchKey)
         {
             //getting teacher data from the controller
             TeacherDataController controller = new TeacherDataController();
-            IEnumerable<Teacher> Teachers = controller.ListTeachers();
+            IEnumerable<Teacher> Teachers = controller.ListTeachers(searchKey);
+
+            //passing List<Teacher> to the view
+            ViewData["searchKey"] = searchKey;
+
+            Debug.WriteLine("Search key: " + searchKey);
 
             // Views/Teacher/List.cshtml
             return View(Teachers);
@@ -30,6 +35,11 @@ namespace Cumulative_N01652955.Controllers
 
             // Views/Teacher/Show.cshtml
             return View(SelectedTeacher);
+        }
+
+        public ActionResult ShowTeacherClasses()
+        {
+            TeacherDataController
         }
 
         //GET: Teacher/Create -> a webpage that will allow adding a new teacher
