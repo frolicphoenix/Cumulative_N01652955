@@ -202,27 +202,71 @@ namespace Cumulative_N01652955.Controllers
         [Route("api/TeacherData/DeleteTeacher/{TeacherId}")]
         public void DeleteTeacher(int TeacherId)
         {
-            //create a connection
-            MySqlConnection Connection = School.AccessDatabase();
+            
+                //create a connection
+                MySqlConnection Connection = School.AccessDatabase();
 
-            //open database
+                //open database
+                Connection.Open();
+
+                //create sql command
+                string query = "delete from teachers where teacherid=@id";
+
+                //set command text
+                MySqlCommand Command = Connection.CreateCommand();
+                Command.CommandText = query;
+
+                Command.Parameters.AddWithValue("@id", TeacherId);
+                Command.Prepare();
+
+                //execute the query
+                Command.ExecuteNonQuery();
+                //add the new teacher to the database
+            
+                 //close the connection
+                 Connection.Close();
+
+           
+        }
+
+        /// <summary>
+        /// Receives teachers information and updates it in the database
+        /// </summary>
+        /// <param name="TeacherId"> teacher id to update </param>
+        /// <param name="TeacherInfo"> the information of the individual teacher </param>
+        /// <example>
+        /// POST: api/TeacherData/UpdateTeacher/{teacherid}
+        /// FORM DATA: 
+        /// {
+        ///      "TeacherFName":"Jane",
+        ///      "TeacherLName":"Doe",
+        ///      "EmployeeNumber":"A123",
+        ///      "HireDate":""10/11/2024",
+        ///      "Salary":"200"
+        /// }
+        /// </example>
+        [Route("api/TeacherData/UpdateTeacher/{TeacherId}")]
+        [HttpPost]
+        public void UpdateTeacher( int TeacherId, [FromBody]Teacher TeacherInfo)
+        {
+
+            MySqlConnection Connection = School.AccessDatabase();
             Connection.Open();
 
-            //create sql command
-            string query = "delete from teachers where teacherid=@id";
-
-            //set command text
+            string query = "UPDATE teachers SET TeacherFName=@fname, TeacherLName=@lname WHERE teacherid=@id";
             MySqlCommand Command = Connection.CreateCommand();
             Command.CommandText = query;
 
             Command.Parameters.AddWithValue("@id", TeacherId);
+            Command.Parameters.AddWithValue("@fname", TeacherInfo.TeacherFName);
+            Command.Parameters.AddWithValue("@lname", TeacherInfo.TeacherLName);
 
-            //execute the query
+            Command.Prepare();
+
+
             Command.ExecuteNonQuery();
-            //add the new teacher to the database
-
-            //close the connection
             Connection.Close();
+
         }
 
     }

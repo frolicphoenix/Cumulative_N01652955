@@ -94,5 +94,35 @@ namespace Cumulative_N01652955.Controllers
             return RedirectToAction("List");
         }
 
+        //GET: Teacher/Update/{teacherid} -> a webpage to change teacher information
+        public ActionResult Update(int id)
+        {
+
+            TeacherDataController controller = new TeacherDataController();
+            Teacher SelectedTeacher = controller.FindTeacher(id);
+
+            // Views/Teacher/Update.cshtml
+            return View(SelectedTeacher);  
+        }
+
+        //POST: Teacher/Edit/{teacherid} -> a webpage of teacher data and update button
+        [HttpPost]
+        public ActionResult Edit(int id, string TeacherFName, string TeacherLName)
+        {
+            Teacher Info = new Teacher();
+
+            Info.TeacherFName = TeacherFName;
+            Info.TeacherLName = TeacherLName;
+
+            Debug.WriteLine("RECIEVED " + Info.TeacherFName);
+            //update the teacher information
+            TeacherDataController Controller = new TeacherDataController();
+
+            Controller.UpdateTeacher(id, Info);
+
+            //redirects to Teacher/Show.cshtml
+            return RedirectToAction("Show/" + id);
+        }
+
     }
 }

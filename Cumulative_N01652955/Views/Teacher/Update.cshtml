@@ -1,0 +1,32 @@
+﻿@model Cumulative_N01652955.Models.Teacher
+
+@{
+    ViewBag.Title = "Update";
+}
+
+<h2>Update</h2>
+
+<form action="/Teacher/Edit/@Model.TeacherId" method="POST">
+    <div>
+        <label>Name: </label>
+        <input type="text" name="TeacherFName" value="@Model.TeacherFName" />
+        <input type="text" name="TeacherLName" value="@Model.TeacherLName" />
+    </div>
+    <div>
+        <label>Employee number: </label>
+        <input type="text" name="Salary" value="@Model.EmployeeNumber" />
+    </div>
+    <div>
+        <label>Hire date: </label>
+        <input type="text" name="Salary" value="@Model.HireDate.ToString("yyyy-MM-dd")" />
+    </div>
+    <div>
+        <label>Salary: </label>
+        <input type="text" name="Salary" value="@Model.Salary" />
+    </div>
+    <div>
+        <input type="submit" value="Update Teacher" />
+    </div>
+
+
+</form>
