@@ -18,7 +18,7 @@ namespace Cumulative_N01652955.Models
 
         //FK TeacherId
         public int TeacherId { get; set; }
-        public Teacher Teacher { get; set; }
+        public virtual Teacher Teacher { get; set; }
 
     }
 }

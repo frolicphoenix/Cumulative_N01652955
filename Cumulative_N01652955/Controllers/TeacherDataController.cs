@@ -84,14 +84,6 @@ namespace Cumulative_N01652955.Controllers
             return teachers;
         }
 
-        public async IEnumerable<TeacherxClasses> ShowTeacherClass()
-        {
-            List<TeacherxClasses> listTeacherClass = new List<TeacherxClasses>();
-            
-
-
-        }
-
         //GOAL: To find a spcific teacher from the database using teacherid
         /// <summary>
         /// Receive a teacher id and provide the information of the teacher

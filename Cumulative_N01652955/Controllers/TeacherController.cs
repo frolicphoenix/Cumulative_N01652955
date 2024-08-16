@@ -37,11 +37,6 @@ namespace Cumulative_N01652955.Controllers
             return View(SelectedTeacher);
         }
 
-        public ActionResult ShowTeacherClasses()
-        {
-            TeacherDataController
-        }
-
         //GET: Teacher/Create -> a webpage that will allow adding a new teacher
         public ActionResult Create()
         {
